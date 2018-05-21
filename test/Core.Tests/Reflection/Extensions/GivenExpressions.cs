@@ -96,7 +96,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.Constant);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = 5;
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
 
@@ -107,7 +107,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.New);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = new ParamObject();
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.Call);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = new ParamObject();
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
         [Test]
@@ -129,7 +129,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.MemberAccess);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = new ParamObject();
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
 
@@ -140,7 +140,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.MemberInit);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = new ParamObject {Prop = "Foo"};
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
 
@@ -153,7 +153,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.Conditional);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = new ParamObject {Prop = "Foo"};
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
 
@@ -166,7 +166,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             expression.GetMethodArguments().First().Value.NodeType.Should().Be(ExpressionType.Coalesce);
             var arguments = expression.GetMethodArgumentValues();
             var expectation = new ParamObject {Prop = "Bar"};
-            arguments.Single().Value.ShouldBeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
+            arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
     }
 }

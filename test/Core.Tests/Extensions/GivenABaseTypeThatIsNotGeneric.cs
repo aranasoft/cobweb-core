@@ -9,7 +9,7 @@ namespace Cobweb.Tests.Extensions {
         [Test]
         public void ItShouldThrowWhenCheckingGenericAssignment() {
             Action act = () => typeof(object).IsAssignableToGeneric(typeof(Animal));
-            act.ShouldThrow<ArgumentException>();
+            act.Should().Throw<ArgumentException>();
         }
 
         public class Animal {}
