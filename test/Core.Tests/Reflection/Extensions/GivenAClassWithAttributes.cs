@@ -1,29 +1,36 @@
-﻿using Cobweb.Reflection.Extensions;
+﻿using System;
+using Cobweb.Reflection.Extensions;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Reflection.Extensions {
-    [TestFixture]
     public class GivenAClassWithAttributes {
-        [Test]
+        [Fact]
         public void ItShouldNotIdentifyNonExistantAttributes() {
-            (typeof(GivenAClassWithAttributes)).IsDefined<IgnoreAttribute>().Should().BeFalse();
+            (typeof(ClassWithAttributes)).IsDefined<IgnoreAttribute>().Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyExistingAttributes() {
-            (typeof(GivenAClassWithAttributes)).IsDefined<TestFixtureAttribute>().Should().BeTrue();
+            (typeof(ClassWithAttributes)).IsDefined<CustomAttribute>().Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotRetrieveNonExistantAttributes() {
-            (typeof(GivenAClassWithAttributes)).GetCustomAttributes<IgnoreAttribute>().Should().BeEmpty();
+            (typeof(ClassWithAttributes)).GetCustomAttributes<IgnoreAttribute>().Should().BeEmpty();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldRetrieveExistingAttributes() {
-            var attrs = (typeof(GivenAClassWithAttributes)).GetCustomAttributes<TestFixtureAttribute>();
+            var attrs = (typeof(ClassWithAttributes)).GetCustomAttributes<CustomAttribute>();
             attrs.Should().NotBeEmpty();
         }
+
+        [Custom]
+        public class ClassWithAttributes { }
+
+        public class CustomAttribute : Attribute { }
+        
+        public class IgnoreAttribute : Attribute { }
     }
 }

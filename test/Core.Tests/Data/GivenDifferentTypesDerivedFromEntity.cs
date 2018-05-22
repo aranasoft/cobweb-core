@@ -1,16 +1,15 @@
 using System;
 using Cobweb.Data;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Data {
-    [TestFixture]
     public class GivenDifferentTypesDerivedFromEntity {
         private class SampleAEntity : Entity<SampleAEntity, Guid>, IEquatable<SampleAEntity> {}
 
         private class SampleBEntity : Entity<SampleBEntity, Guid>, IEquatable<SampleBEntity> {}
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderSameIdentityEqual() {
             var identity = Guid.NewGuid();
             var entity1 = new SampleAEntity {Id = identity};
@@ -19,7 +18,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().NotBe(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqual() {
             var entity1 = new SampleAEntity {Id = Guid.NewGuid()};
             var entity2 = new SampleBEntity {Id = Guid.NewGuid()};

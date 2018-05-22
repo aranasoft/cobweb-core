@@ -1,9 +1,8 @@
 ﻿using Cobweb.Extentions;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Extensions {
-    [TestFixture]
     public class GivenAnEnum {
         private enum Fruits {
             [System.ComponentModel.Description("Granny Smith Apples")]
@@ -12,12 +11,12 @@ namespace Cobweb.Tests.Extensions {
             Grapes
         }
 
-        [Test]
+        [Fact]
         public void ItShouldReturnDescriptionElementsAsDescription() {
             Fruits.Apples.GetDescription().Should().Be("Granny Smith Apples");
         }
 
-        [Test]
+        [Fact]
         public void ItShouldReturnNonDescriptionElementsAsEnumName() {
             Fruits.Oranges.GetDescription().Should().Be("Oranges");
         }

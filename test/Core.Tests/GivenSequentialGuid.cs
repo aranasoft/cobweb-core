@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests {
-    [TestFixture]
     public class GivenSequentialGuid {
-        [Test]
+        [Fact]
         public void ItShouldGenerateUniqueGuids() {
             const int generatedValueCount = 1000;
             var values = new HashSet<Guid>();

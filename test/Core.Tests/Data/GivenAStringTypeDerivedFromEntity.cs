@@ -1,19 +1,18 @@
 using System;
 using Cobweb.Data;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Data {
-    [TestFixture]
     public class GivenAStringTypeDerivedFromEntity {
         private class StringEntity : Entity<StringEntity, string>, IEquatable<StringEntity> {}
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyAsDerivedFromEntity() {
             EntityManager.Current.IsEntity(typeof(StringEntity)).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameInstanceEqual() {
             var entity1 = new StringEntity();
             var entity2 = entity1;
@@ -21,7 +20,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().Be(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameDefaultIdentityNotEqual() {
             var entity1 = new StringEntity {Id = null};
             var entity2 = new StringEntity {Id = null};
@@ -29,7 +28,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().NotBe(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameDefaultIdentityNotEqualViaEqualOperator() {
             var entity1 = new StringEntity {Id = null};
             var entity2 = new StringEntity {Id = null};
@@ -37,7 +36,7 @@ namespace Cobweb.Tests.Data {
             (entity1 == entity2).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameDefaultIdentityNotEqualViaUnequalOperator() {
             var entity1 = new StringEntity {Id = null};
             var entity2 = new StringEntity {Id = null};
@@ -45,7 +44,7 @@ namespace Cobweb.Tests.Data {
             (entity1 != entity2).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameNonDefaultIdentityEqual() {
             var identity = "1234qwerasdf";
             var entity1 = new StringEntity {Id = identity};
@@ -54,7 +53,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().Be(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameNonDefaultIdentityEqualViaEqualOperator() {
             var identity = "1234qwerasdf";
             var entity1 = new StringEntity {Id = identity};
@@ -63,7 +62,7 @@ namespace Cobweb.Tests.Data {
             (entity1 == entity2).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameNonDefaultIdentityEqualViaUnequalOperator() {
             var identity = "1234qwerasdf";
             var entity1 = new StringEntity {Id = identity};
@@ -72,7 +71,7 @@ namespace Cobweb.Tests.Data {
             (entity1 != entity2).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqual() {
             var entity1 = new StringEntity {Id = "12345"};
             var entity2 = new StringEntity {Id = "qwert"};
@@ -80,7 +79,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().NotBe(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqualViaEqualOperator() {
             var entity1 = new StringEntity {Id = "12345"};
             var entity2 = new StringEntity {Id = "qwert"};
@@ -88,7 +87,7 @@ namespace Cobweb.Tests.Data {
             (entity1 == entity2).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqualViaUnequalOperator() {
             var entity1 = new StringEntity {Id = "12345"};
             var entity2 = new StringEntity {Id = "qwert"};

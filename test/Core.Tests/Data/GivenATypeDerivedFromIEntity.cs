@@ -1,10 +1,9 @@
 using System;
 using Cobweb.Data;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Data {
-    [TestFixture]
     public class GivenATypeDerivedFromIEntity {
         private class SampleInterfaceEntity : IEntity<SampleInterfaceEntity>, IEquatable<SampleInterfaceEntity> {
             public bool Equals(SampleInterfaceEntity other) {
@@ -12,7 +11,7 @@ namespace Cobweb.Tests.Data {
             }
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyAsDerivedFromEntity() {
             EntityManager.Current.IsEntity(typeof(SampleInterfaceEntity)).Should().BeTrue();
         }

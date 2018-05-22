@@ -1,9 +1,8 @@
 ﻿using Cobweb.Extentions.ObjectExtentions;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Extensions {
-    [TestFixture]
     public class GivenAParentObjectWithChildProperties {
         public class ParentThing {
             public int ChildThing {
@@ -11,36 +10,32 @@ namespace Cobweb.Tests.Extensions {
             }
         }
 
-        [TestFixture]
         public class GivenANullParent {
             private ParentThing _parent;
 
-            [SetUp]
-            public void SetUp() {
+            public GivenANullParent() {
                 _parent = default(ParentThing);
             }
 
-            [Test]
+            [Fact]
             public void IfExistsShouldReturnTheDefaultTypeForTheChildProprty() {
                 _parent.IfExists(parent => parent.ChildThing).Should().Be(default(int));
             }
 
-            [Test]
+            [Fact]
             public void IfExistsShouldReturnTheDefaultValueIfSpecified() {
                 _parent.IfExists(parent => parent.ChildThing, 101).Should().Be(101);
             }
         }
 
-        [TestFixture]
         public class GivenAnInstanceOfParent {
             private ParentThing _parent;
 
-            [SetUp]
-            public void SetUp() {
+            public GivenAnInstanceOfParent() {
                 _parent = new ParentThing();
             }
 
-            [Test]
+            [Fact]
             public void IfExistsShouldReturnTheValueOfTheChildProperty() {
                 _parent.IfExists(parent => parent.ChildThing).Should().Be(27);
             }

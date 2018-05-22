@@ -1,14 +1,13 @@
 using System;
 using Cobweb.Data;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Data {
-    [TestFixture]
     public class GivenTwoOfTheSameEntityType {
         private class SampleEntity : Entity<SampleEntity, Guid>, IEquatable<SampleEntity> {}
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameInstanceEqual() {
             var entity1 = new SampleEntity();
             var entity2 = entity1;
@@ -16,7 +15,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().Be(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameNonDefaultIdentityEqual() {
             var identity = Guid.NewGuid();
             var entity1 = new SampleEntity {Id = identity};
@@ -25,7 +24,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().Be(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameNonDefaultIdentityEqualViaEqualOperator() {
             var identity = Guid.NewGuid();
             var entity1 = new SampleEntity {Id = identity};
@@ -34,7 +33,7 @@ namespace Cobweb.Tests.Data {
             (entity1 == entity2).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldConsiderSameNonDefaultIdentityEqualViaUnequalOperator() {
             var identity = Guid.NewGuid();
             var entity1 = new SampleEntity {Id = identity};
@@ -43,7 +42,7 @@ namespace Cobweb.Tests.Data {
             (entity1 != entity2).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqual() {
             var entity1 = new SampleEntity {Id = Guid.NewGuid()};
             var entity2 = new SampleEntity {Id = Guid.NewGuid()};
@@ -51,7 +50,7 @@ namespace Cobweb.Tests.Data {
             entity1.Should().NotBe(entity2);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqualViaEqualOperator() {
             var entity1 = new SampleEntity {Id = Guid.NewGuid()};
             var entity2 = new SampleEntity {Id = Guid.NewGuid()};
@@ -59,7 +58,7 @@ namespace Cobweb.Tests.Data {
             (entity1 == entity2).Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ItShouldNotConsiderDifferentIdentityEqualViaUnequalOperator() {
             var entity1 = new SampleEntity {Id = Guid.NewGuid()};
             var entity2 = new SampleEntity {Id = Guid.NewGuid()};

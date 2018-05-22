@@ -3,10 +3,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using Cobweb.Reflection.Extensions;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Reflection.Extensions {
-    [TestFixture]
     public class GivenExpressions {
         public class ParamObject {
             public string Prop { get; set; }
@@ -18,7 +17,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             public void Run(ParamObject param) {}
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentCount() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5);
 
@@ -26,7 +25,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             arguments.Should().HaveCount(1);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentCountByMethodValues() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5);
 
@@ -35,7 +34,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldMaintainArgumentSort() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5, 5m);
 
@@ -45,7 +44,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentCountForMultipleArgs() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5, 5m);
 
@@ -54,7 +53,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldMaintainArgumentSortByMethodValues() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5, 5m);
 
@@ -63,7 +62,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             arguments.ElementAt(1).Key.Name.Should().Be("arg2");
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentCountByMethodValuesForMultipleArgs() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5, 5m);
 
@@ -72,7 +71,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValue() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5);
 
@@ -80,7 +79,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             arguments.Should().HaveCount(1);
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByMethodValues() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5);
 
@@ -89,7 +88,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByConstant() {
             Expression<Action<ContainerObject>> expression = container => container.Run(5);
 
@@ -100,7 +99,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByNew() {
             Expression<Action<ContainerObject>> expression = container => container.Run(new ParamObject());
 
@@ -110,7 +109,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByCall() {
             Func<ParamObject> input = () => new ParamObject();
             Expression<Action<ContainerObject>> expression = container => container.Run(input.Invoke());
@@ -121,7 +120,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
             arguments.Single().Value.Should().BeEquivalentTo(expectation, options => options.RespectingRuntimeTypes());
         }
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByMemberAccess() {
             var input = new ParamObject();
             Expression<Action<ContainerObject>> expression = container => container.Run(input);
@@ -133,7 +132,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByMemberInit() {
             Expression<Action<ContainerObject>> expression = container => container.Run(new ParamObject {Prop = "Foo"});
 
@@ -144,7 +143,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByConditional() {
             ParamObject nullObject = null;
             Expression<Action<ContainerObject>> expression = container =>
@@ -157,7 +156,7 @@ namespace Cobweb.Tests.Reflection.Extensions {
         }
 
 
-        [Test]
+        [Fact]
         public void ItShouldIdentifyArgumentValueByCoalesce() {
             ParamObject nullObject = null;
             Expression<Action<ContainerObject>> expression = container =>

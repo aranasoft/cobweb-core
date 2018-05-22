@@ -1,12 +1,11 @@
 ﻿using System;
 using Cobweb.Extentions;
 using FluentAssertions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Cobweb.Tests.Extensions {
-    [TestFixture]
     public class GivenABaseTypeThatIsNotGeneric {
-        [Test]
+        [Fact]
         public void ItShouldThrowWhenCheckingGenericAssignment() {
             Action act = () => typeof(object).IsAssignableToGeneric(typeof(Animal));
             act.Should().Throw<ArgumentException>();
@@ -14,44 +13,44 @@ namespace Cobweb.Tests.Extensions {
 
         public class Animal {}
 
-        [TestFixture]
+    
         public class GivenANonGenericDerivedType {
-            [Test]
+            [Fact]
             public void ItShouldIdentifyBaseClassAsAssignableTo() {
                 typeof(Fish).IsAssignableTo(typeof(Animal)).Should().BeTrue();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldIdentifyBaseClassAsAssignableToViaConstraints() {
                 typeof(Fish).IsAssignableTo<Animal>().Should().BeTrue();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldNotIdentifyDerivedClassAsAssignableTo() {
                 typeof(Animal).IsAssignableTo(typeof(Fish)).Should().BeFalse();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldNotIdentifyDerivedClassAsAssignableToViaConstraints() {
                 typeof(Animal).IsAssignableTo<Fish>().Should().BeFalse();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldIdentifyDerivedClassAsAssignableFrom() {
                 typeof(Animal).IsAssignableFrom(typeof(Fish)).Should().BeTrue();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldIdentifyDerivedClassAsAssignableFromViaConstraints() {
                 typeof(Animal).IsAssignableFrom<Fish>().Should().BeTrue();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldNotIdentifyBaseClassAsAssignableFrom() {
                 typeof(Fish).IsAssignableFrom(typeof(Animal)).Should().BeFalse();
             }
 
-            [Test]
+            [Fact]
             public void ItShouldNotIdentifyBaseClassAsAssignableFromViaConstraints() {
                 typeof(Fish).IsAssignableFrom<Animal>().Should().BeFalse();
             }
