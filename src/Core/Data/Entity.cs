@@ -1,9 +1,6 @@
 ﻿using System;
 
 namespace Cobweb.Data {
-    public interface IEntity<TEntity>
-        where TEntity : IEntity<TEntity>, IEquatable<TEntity> {}
-
     /// <summary>
     ///     Base class for objects to be persisted in a relational database. Equates on reference or non-default identifier
     ///     value
