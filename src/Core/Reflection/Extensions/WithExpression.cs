@@ -54,8 +54,6 @@ namespace Cobweb.Reflection.Extensions {
                 default:
                     return Expression.Lambda(argInput).Compile().DynamicInvoke();
             }
-
-            return null;
         }
     }
 }
